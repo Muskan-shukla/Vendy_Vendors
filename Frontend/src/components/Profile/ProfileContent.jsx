@@ -62,7 +62,7 @@ const ProfileContent = ({ active }) => {
           <div className="w-full px-5">
             <form onSubmit={handleSubmit} aria-required={true}>
               <div className="w-full 800px:flex block pb-3">
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className='block pb-2'>Full Name</label>
                   <input
                     type="text"
@@ -72,11 +72,11 @@ const ProfileContent = ({ active }) => {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className='block pb-2'>Email Address</label>
                   <input
                     type="text"
-                    className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
+                    className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -85,7 +85,7 @@ const ProfileContent = ({ active }) => {
               </div>
 
               <div className="w-full 800px:flex block pb-3">
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className='block pb-2'>Phone number</label>
                   <input
                     type="text"
@@ -95,7 +95,7 @@ const ProfileContent = ({ active }) => {
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className='block pb-2'>Zip code</label>
                   <input
                     type="text"
@@ -108,7 +108,7 @@ const ProfileContent = ({ active }) => {
               </div>
 
               <div className="w-full 800px:flex block pb-3">
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className='block pb-2'>Address 1</label>
                   <input
                     type="address"
@@ -118,7 +118,7 @@ const ProfileContent = ({ active }) => {
                     onChange={(e) => setAddress1(e.target.value)}
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className='block pb-2'>Address 2 </label>
                   <input
                     type="address"
@@ -174,6 +174,15 @@ const ProfileContent = ({ active }) => {
         active ===6 &&(
           <div>
             <PaymentMethod/>
+          </div>
+        )
+      }
+
+      {/* address  */}
+      {
+        active ===7 &&(
+          <div>
+            <Address/>
           </div>
         )
       }
@@ -488,6 +497,42 @@ const PaymentMethod=()=>{
         </div>
       </div>
     </div>
+  )
+}
+
+const Address=()=>{
+  return(
+    <div className="w-full px-5">
+      <div className="flex w-full items-center justify-between">
+        <h1 className="text-[25px] font-[600] text-[#000000ba] pb-2"
+        >
+          My Addressess
+        </h1>
+        <div className={`$${styles.button} !rounded-md`}>
+          <span className="text-[#fff]">Add New</span>
+        </div>
+      </div>
+      <br />
+      <div className="w-full bg-white h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between pr-10">
+        <div className="flex items-center">
+        <h5 className="pl-5 font-[600]">
+          Default
+        </h5>
+        </div>
+        <div className="pl-8 flex items-center">
+          <h6>596 Damodar Nagar Kanpur </h6>
+        </div>
+        <div className="pl-8 flex items-center">
+          <h6>+91 181233444</h6>
+        </div>
+        <div className="min-w-[10%] flex items-center justify-between pl-8">
+
+          <AiOutlineDelete size={25} className="cursor-pointer"/>
+
+        </div>
+      </div>
+    </div>
+
   )
 }
 export default ProfileContent;

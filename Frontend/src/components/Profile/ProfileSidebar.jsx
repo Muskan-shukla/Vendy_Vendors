@@ -16,7 +16,9 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 const ProfileSidebar = ({ setActive, active }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+
+  
  const {user} = useSelector((state) => state.user);
   const logoutHandler = () => {
     axios
@@ -131,7 +133,7 @@ const ProfileSidebar = ({ setActive, active }) => {
       
       <div
         className="single_item flex items-center cursor-pointer w-full mb-8"
-        onClick={logoutHandler}
+        onClick={()=> setActive(8) || logoutHandler()}
       >
         <AiOutlineLogin size={20} color={active === 8 ? "red" : ""} />
         <span

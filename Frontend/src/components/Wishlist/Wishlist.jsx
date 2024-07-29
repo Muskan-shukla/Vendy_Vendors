@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from '../../styles/styles';
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
-import {BsCartPlus} from "react-icons/bs"
+import { BsCartPlus } from "react-icons/bs"
 import { AiOutlineHeart } from 'react-icons/ai';
 const Wishlist = ({ setOpenWishlist }) => {
   const cartData = [
@@ -44,8 +44,8 @@ const Wishlist = ({ setOpenWishlist }) => {
             <CartSingle key={index} data={i} />
           ))}
         </div>
-       
-        
+
+
       </div>
     </div>
   );
@@ -58,15 +58,15 @@ const CartSingle = ({ data }) => {
   return (
     <div className='border-b p-4'>
       <div className="w-full flex items-center">
-        <RxCross1 className='cursor-pointer'/>
+        <RxCross1 className='cursor-pointer' />
         <img src="https://www.bullionknot.com/cdn/shop/files/Songbirdmin_4.jpg?v=1711431567" alt="" className="w-[130px] h-min ml-2 mr-2 rounded-[5px]" />
-        
+
         <div className="pl-[5px]">
           <h1>{data.name}</h1>
           <h4 className="font-[600] text-[17px] pt-[3px] text-[#d02222] font-Roboto">US${totalPrice}</h4>
         </div>
         <div>
-            <BsCartPlus size={20} className="cursor-pointer" title="Add to cart"/>
+          <BsCartPlus size={20} className="cursor-pointer" title="Add to cart" />
         </div>
       </div>
     </div>
