@@ -7,6 +7,7 @@ import { server } from "../../server";
 import { toast } from "react-toastify";
 import { RxAvatar } from "react-icons/rx";
 
+
 const ShopCreate = () => {
   const navigate=useNavigate();
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const ShopCreate = () => {
   const [avatar, setAvatar] = useState();
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config={headers:{"Content-type":"multipart/form-data"}}
@@ -45,6 +46,7 @@ const ShopCreate = () => {
         setPhoneNumber();
       })
       .catch((error)=>{
+        console.log("hii")
         toast.error(error.response.data.message);
       })
   };

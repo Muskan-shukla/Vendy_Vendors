@@ -1,9 +1,9 @@
 import React from 'react'
 import "./App.css";
 import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
-import { LoginPage, HomePage, FAQPage, ProfilePage, ShopCreatePage } from "./Routes.js";
-import { SignupPage, ProductsPage, ProductDetailsPage,SellerActivationPage } from "./Routes.js"
-import { ActivationPage, BestSellingPage, EventsPage,ShopLoginPage } from "./Routes.js"
+import { LoginPage, HomePage, FAQPage, ProfilePage, ShopCreatePage } from "./routes/Routes.js";
+import { SignupPage, ProductsPage, ProductDetailsPage,SellerActivationPage } from "./routes/Routes.js"
+import { ActivationPage, BestSellingPage, EventsPage,ShopLoginPage } from "./routes/Routes.js"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import axios from "axios";
@@ -15,15 +15,13 @@ import Store from "./redux/store";
 import { loadUser,loadSeller } from "./redux/actions/user";
 // import { server } from "./server";
 // import { toast } from "react-toastify";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./routes/ProtectedRoute.js";
 import {ShopHomePage} from "./ShopRoutes"
-import SellerProtectedRoute from './SellerProtectedRoute.js';
-
+import SellerProtectedRoute from './routes/SellerProtectedRoute.js';
+import { ShopDashboardPage,ShopCreateProduct,ShopAllProducts } from './routes/ShopRoutes';
 
 const App = () => {
-  const { loading, isAuthenticated } = useSelector((state) => state.user);
-  const { isLoading,isSeller} = useSelector((state) => state.seller);
-  // const navigate=useNavigate();
+  
   useEffect(() => {
     Store.dispatch(loadUser());
     Store.dispatch(loadSeller());
@@ -36,7 +34,7 @@ const App = () => {
   }, []);
   return (
     <>
-      {loading || isLoading ? null : (
+     
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -49,23 +47,36 @@ const App = () => {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/checkout" element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute >
                 <CheckoutPage />
               </ProtectedRoute>
             } />
             <Route path="/product/:name" element={<ProductDetailsPage />} />
             <Route path="/profile" element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute >
                 <ProfilePage />
               </ProtectedRoute>
             } />
+
+            {/* shop route  */}
             <Route path="/shop-create" element={<ShopCreatePage />} />
             <Route path="/shop-login" element={<ShopLoginPage />} />
             <Route path="/shop/:id" element={
-              <SellerProtectedRoute
-              isSeller={isSeller} 
-              >
+              <SellerProtectedRoute>
                 <ShopHomePage/>
+              </SellerProtectedRoute>} />
+              <Route path="/dashboard" element={
+              <SellerProtectedRoute>
+                <ShopDashboardPage/>
+              </SellerProtectedRoute>} />
+              <Route path="/dashboard-create-product" element={
+              <SellerProtectedRoute>
+                <ShopCreateProduct/>
+              </SellerProtectedRoute>} />
+
+              <Route path="/dashboard-products" element={
+              <SellerProtectedRoute>
+                <ShopAllProducts/>
               </SellerProtectedRoute>} />
 
           </Routes>
@@ -82,7 +93,7 @@ const App = () => {
             theme="dark"
           />
         </BrowserRouter>
-      )}
+      
     </>
   );
   

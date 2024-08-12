@@ -33,11 +33,13 @@ export const loadSeller = () => async (dispatch) => {
             withCredentials: true,
 
         });
+        console.log("API Response Data:", data);
         dispatch({
             type: "LoadSellerSuccess",
-            payload: data.user,
+            payload: data.seller,
         });
     } catch (error) {
+        console.error("Error fetching seller data:", error);
         dispatch({
             type: "LoadSellerFail",
             payload: error.response.data.message,

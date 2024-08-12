@@ -34,7 +34,7 @@ const ProfileContent = ({ active }) => {
   const [zipCode, setZipCode] = useState('');
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
-
+  // console.log("User Data:", user);
   const handleSubmit=(e)=>{
     e.preventDefault();
   }
@@ -47,7 +47,7 @@ const ProfileContent = ({ active }) => {
           <div className="flex justify-center w-full">
             <div className="relative">
               <img
-                src={`${backend_url}${user?.avatar}`}
+                src={`${backend_url}${user.avatar}`}
                 className="w-[150px] h-[150px] rounded-full object-cover border-[3px] border-[#3ad132]"
                 alt="User Avatar"
               />

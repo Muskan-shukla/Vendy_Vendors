@@ -9,7 +9,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/ErrorHandler");
 const {upload}=require("../multer")
 const sendShopToken = require("../utils/shopToken");
-
+const fs = require('fs');
 
 //create shop
 router.post("/create-shop",upload.single("file"),async(req,res,next)=>{
@@ -65,9 +65,11 @@ router.post("/create-shop",upload.single("file"),async(req,res,next)=>{
 
 // create activation token
 const createActivationToken = (seller) => {
-  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
+  const token = jwt.sign(seller, process.env.ACTIVATION_SECRET, {
     expiresIn: "5m",
   });
+  console.log('Activation Token:', token); // Log the token
+  return token;
 };
 
 // activate user
@@ -103,9 +105,10 @@ router.post(
         address,
         phoneNumber,
       });
-
+      console.log('seller is:',seller);
       sendShopToken(seller, 201, res);
     } catch (error) {
+      
       return next(new ErrorHandler(error.message, 500));
     }
   })
@@ -165,6 +168,28 @@ router.get(
     }
   })
 );
+
+//logout from shop
+router.get(
+  "/logout",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      res.cookie("seller_token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+        // sameSite: "none",
+        // secure: true,
+      });
+      res.status(201).json({
+        success: true,
+        message: "Log out successful!",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 
 
 module.exports=router;
